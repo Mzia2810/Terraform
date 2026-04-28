@@ -1,30 +1,42 @@
+name: Deploy Infra
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: environments/dev
-
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Configure AWS
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Init
+      # 🔥 Debug step (IMPORTANT for your current issue)
+      - name: Debug repo structure
+        run: |
+          pwd
+          ls -R
+
+      - name: Terraform Init
+        working-directory: environments/dev
         run: terraform init
 
-      - name: Plan
+      - name: Terraform Plan
+        working-directory: environments/dev
         run: terraform plan
 
-      - name: Apply
+      - name: Terraform Apply
+        working-directory: environments/dev
         run: terraform apply -auto-approve
