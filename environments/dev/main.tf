@@ -17,6 +17,6 @@ module "ec2" {
   subnet_id      = module.vpc.subnet_1_id
   instance_name  = "dev-ec2"
   user_data      = "${path.module}/../../scripts/user_data.sh"
-
+  security_group_id = module.vpc.security_group_id
   depends_on = [module.vpc]
 }

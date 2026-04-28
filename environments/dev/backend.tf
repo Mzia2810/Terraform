@@ -1,7 +1,7 @@
-# terraform {
-#   backend "s3" {
-#     bucket = "your-terraform-state-bucket"
-#     key    = "dev/terraform.tfstate"
-#     region = "us-east-1"
-#   }
-# }
+terraform {
+  backend "s3" {
+    bucket = "s3-terraform-state-devops-zia"
+    key    = "dev/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
