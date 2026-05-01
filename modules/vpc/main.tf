@@ -20,6 +20,17 @@ resource "aws_subnet" "public_1" {
   }
 }
 
+resource "aws_subnet" "public_2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.4.0/24"
+  availability_zone       = var.az2
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "public-subnet-2"
+  }
+}
+
 # =========================
 # PRIVATE SUBNETS
 # =========================
@@ -93,6 +104,10 @@ resource "aws_route_table_association" "private_assoc_2" {
   route_table_id = aws_route_table.private_rt.id
 }
 
+resource "aws_route_table_association" "public_assoc_2" {
+  subnet_id      = aws_subnet.public_2.id
+  route_table_id = aws_route_table.public_rt.id
+}
 # =========================
 # PUBLIC ROUTE TABLE
 # =========================
