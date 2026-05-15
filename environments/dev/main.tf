@@ -48,7 +48,8 @@ module "ecr" {
 # -------------------------
 module "iam" {
   source = "../../modules/iam"
-  environment = var.environment
+   environment = var.environment
+  region      = var.region
 }
 
 # -------------------------
