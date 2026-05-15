@@ -92,3 +92,16 @@ output "alb_url" {
 output "ecr_repo_url" {
   value = module.ecr.repository_url
 }
+
+
+
+module "sns" {
+  source = "../../modules/sns"
+  email  = var.alert_email
+}
+
+module "cloudwatch" {
+  source        = "../../modules/cloudwatch"
+  instance_id   = module.ec2.instance_id
+  sns_topic_arn = module.sns.topic_arn
+}
