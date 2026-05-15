@@ -10,7 +10,7 @@ terraform {
     bucket         = "zia-terraform-state-bucket"
     key            = "dev/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "terraform-locks-db"
+    use_lockfile = true
     encrypt        = true
   }
 }
