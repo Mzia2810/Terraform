@@ -10,3 +10,8 @@ variable "ami" {
 variable "alert_email" {
   type = string
 }
+
+
+variable "environment" {
+  default = "dev"
+}
