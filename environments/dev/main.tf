@@ -48,8 +48,7 @@ module "ecr" {
 # -------------------------
 module "iam" {
   source = "../../modules/iam"
-   environment = var.environment
-  region      = var.region
+  
 }
 
 # -------------------------
@@ -68,7 +67,8 @@ module "alb" {
 # -------------------------
 module "ecs" {
   source = "../../modules/ecs"
-
+ environment = var.environment
+  region      = var.region
   execution_role_arn = module.iam.execution_role_arn
   image_url          = "${module.ecr.repository_url}:latest"
 
